@@ -63,7 +63,7 @@ class MakeCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
         // If ``docker-compose.yml`` does not exist
-        if (! file_exists($this->dockerComposePath) {
+        if (! file_exists($this->dockerComposePath)) {
             copy(__DIR__.'/stubs/docker-compose.yml', $this->dockerComposePath);
         }
 
