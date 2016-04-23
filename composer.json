@@ -45,6 +45,6 @@
         }
     },
     "bin": [
-        "dockstead"
+        "bin/dockstead"
     ]
 }
