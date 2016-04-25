@@ -7,7 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-class UpCommand extends AbstractCommand
+class StatusCommand extends AbstractCommand
 {
     /**
      * Configure the command options.
@@ -18,8 +18,8 @@ class UpCommand extends AbstractCommand
     {
         parent::configure();
 
-        $this->setName('up')
-            ->setDescription('Create and start the Docker containers for the current project');
+        $this->setName('status')
+            ->setDescription('List the Docker containers for the current project');
     }
 
     /**
@@ -32,16 +32,14 @@ class UpCommand extends AbstractCommand
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $process = new Process('docker-compose up -d');
+        $process = new Process('docker-compose ps');
 
         try {
             $process->mustRun();
-            $output->writeln($process->getErrorOutput());
+            $output->writeln($process->getOutput());
         } catch (ProcessFailedException $e) {
             $output->writeln('<error>'.$e->getMessage().'</error>');
             return;
         }
-
-        $output->writeln('Docker environment created!');
     }
 }
