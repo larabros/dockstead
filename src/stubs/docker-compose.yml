@@ -1,11 +1,11 @@
 nginx:
     build: ./docker/nginx/
-    ports:
-        - 80:80
     links:
         - php
     volumes_from:
         - app
+    environment:
+        VIRTUAL_HOST: "dockstead.app"
 
 php:
     build: ./docker/php/
