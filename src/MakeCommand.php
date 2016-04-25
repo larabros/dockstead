@@ -2,40 +2,11 @@
 
 namespace Larabros\Dockstead;
 
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class MakeCommand extends Command
+class MakeCommand extends AbstractCommand
 {
-    /**
-     * The base path of the project.
-     *
-     * @var string
-     */
-    protected $basePath;
-
-    /**
-     * The path to the ``docker-compose.yml`` file.
-     *
-     * @var string
-     */
-    protected $dockerComposePath;
-
-    /**
-     * The name of the project folder.
-     *
-     * @var string
-     */
-    protected $projectName;
-
-    /**
-     * Sluggified Project Name.
-     *
-     * @var string
-     */
-    protected $defaultName;
-
     /**
      * Configure the command options.
      *
@@ -43,10 +14,7 @@ class MakeCommand extends Command
      */
     protected function configure()
     {
-        $this->basePath          = getcwd();
-        $this->dockerComposePath = $this->basePath . '/docker-compose.yml';
-        $this->projectName       = basename(getcwd());
-        $this->defaultName       = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->projectName)));
+        parent::configure();
 
         $this->setName('make')
             ->setDescription('Install Dockstead into the current project');
@@ -55,8 +23,9 @@ class MakeCommand extends Command
     /**
      * Execute the command.
      *
-     * @param  InputInterface  $input
+     * @param  InputInterface   $input
      * @param  OutputInterface  $output
+     * 
      * @return void
      */
     public function execute(InputInterface $input, OutputInterface $output)
