@@ -17,7 +17,7 @@ php:
         - app
 
 app:
-    image: php:7.0-fpm
+    build: ./docker/app/
     volumes:
         - .:/var/www/html
     command: "true"
